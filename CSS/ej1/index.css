@@ -1,0 +1,22 @@
+h1{
+    font-size: 120px;
+    font-weight: 800px;
+    font-family: "Nunito"  
+}
+p{
+    font-size: 48px;
+    font-weight: 700;
+    
+}
+t{
+    color: pink;
+}
+.disenadora{
+    color: rgb(228, 205, 139);
+}
+.fotografa{
+    color: rgb(223, 159, 255);
+}
+.verde{
+    color: rgb(138, 184, 138);
+}

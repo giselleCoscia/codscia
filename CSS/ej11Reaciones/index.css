@@ -1,0 +1,30 @@
+body{
+    font-family:"Montserrat", sans-serif;
+    font-size: 28px;
+}
+.tipografia{
+    font-size: 18px;
+}
+p{
+    font-size: 16px;
+}
+.usuario{
+    color: rgb(56, 104, 175);
+    text-decoration-line: none;
+}
+.fecha{
+    color: rgb(209, 209, 209);
+    font-size: 14px;
+}
+.reacciones{
+    background-color: rgb(242, 242, 242);
+    width: 250px;
+    border-radius: 12px;
+    padding: 8px;
+    font-size: 18px;
+
+}
+button{
+   border: none;
+   
+}

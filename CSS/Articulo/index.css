@@ -1,0 +1,30 @@
+h1{
+    font-size: 120px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+span{
+    color: rgb(131, 131, 131);
+}
+a{
+    color: rgb(94, 222, 245);
+    text-decoration: none;
+}
+p{ font-family: "Nunito", sans-serif;
+}
+.p1{
+    font-style: italic;
+}
+.p2{
+    font-weight: 900;
+}
+.p3{
+    font-style: italic;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+.negrita{ 
+    font-weight: 900;
+}
+.italica{
+    font-style: italic;
+}
