@@ -1,0 +1,101 @@
+body {
+  margin: 0;
+  /* background-color: hsl(311, 88%, 90%); */
+  background-image: url(./img/8fae823926f9707ccf1f051e3fe19d3d.jpg);
+  color: #001535;
+  text-align: center;
+}
+
+.kdam-thmor-pro-regular {
+  font-family: "Kdam Thmor Pro", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.container {
+  position: relative; /* Contenedor como referencia para posicionar elementos hijos */
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  z-index: 1; /* Asegura que el contenedor esté sobre el mono */
+}
+
+h1 {
+  font-size: 2rem;
+  color: #4f6f88;
+  margin: 20px 0;
+}
+
+.name {
+  font-size: 1.5rem;
+  color: #fced7e;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.content {
+  background: rgba(255, 255, 255, 0); /* Fondo semitransparente */
+  backdrop-filter: blur(5px); /* Efecto de desenfoque */
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1; /* Asegura que el contenido esté sobre el fondo */
+  position: relative; /* Mantiene los elementos internos en orden */
+}
+
+.content p {
+  margin: 10px 0;
+  font-size: 1rem;
+}
+
+.content strong {
+  color: #000;
+}
+
+button {
+  margin-top: 15px;
+  background-color: #c760ba;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #81e146;
+  color: #000;
+}
+
+.monkey {
+  position: absolute;
+  top:0px; /* Ajusta la posición vertical del mono */
+  right: -190px; /* Ajusta la posición horizontal del mono */
+  width: 350px; /* Tamaño del mono */
+  z-index: 0; /* Coloca al mono detrás del contenedor */
+}
+.moving-banner {
+  /* position: relative; */
+  width: 100%; /* Asegura que el banner ocupe todo el ancho */
+  height: 100px; /* Ajusta la altura según el tamaño de tu imagen */
+  overflow: hidden; /* Oculta cualquier parte de la imagen que se salga del contenedor */
+}
+
+.moving-image {
+  position: absolute;
+  top: 40;
+  left: -100%; /* Comienza fuera del lado izquierdo de la pantalla */
+  height: 40%; /* Ajusta la imagen al contenedor */
+  animation: move-right 10s linear infinite; /* Aplica la animación */
+}
+
+@keyframes move-right {
+  0% {
+    left: -100%; /* Imagen comienza fuera de la pantalla */
+  }
+  100% {
+    left: 100%; /* Imagen termina fuera del lado derecho de la pantalla */
+  }
+}
