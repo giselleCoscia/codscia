@@ -1,41 +1,55 @@
-import CardsMovie from '@/componets/CardsMovie'
-import data from '@/data'
-import { Box, Flex, Text } from '@chakra-ui/react'
-
+import CardsMovie from '@/componets/CardsMovie';
+import { Box, Flex, Text, Spinner } from '@chakra-ui/react';
+import useMovies from '@/hooks/useMovies.js'
 
 function Home() {
-  return (
+  const { data: popularMovies, loading: loadingPopular } = useMovies('/movie/popular');
+  const { data: topRatedMovies, loading: loadingTopRated } = useMovies('/movie/top_rated');
+  const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
 
-    
+  return (
     <>
-     
-     <Text  margin="4" textStyle="2xl" color="text">Peliculas Populares </Text> 
+      <Text mt="16" fontSize="4xl" color="text">
+        Películas Populares
+      </Text>
       <Box overflowX="auto" py={4} px={2}>
-        <Flex gap={4} >
-          {data.results.map((movie) => (
-                <CardsMovie
+        {loadingPopular ? (
+          <Spinner />
+        ) : (
+          <Flex gap={4}>
+            {popularMovies.map((movie) => (
+              <CardsMovie
+                key={movie.id}
                 title={movie.title}
-                img={movie.backdrop_path}
+                img={`${imageBaseUrl}${movie.backdrop_path}`}
                 id={movie.id}
               />
-            
-          ))}
-        </Flex>
+            ))}
+          </Flex>
+        )}
       </Box>
-      <Text margin="4" textStyle="2xl" color="text" > Peliculas Mejor Puntuadas</Text>
-        <Box overflowX="auto"  py={4} px={2}>
-        <Flex gap={4} >
-          {data.results.map((movie) => (
-            <CardsMovie
-              title={movie.title}
-              img={movie.backdrop_path}
-              id={movie.id}
-            />
-          ))}
-        </Flex>
+
+      <Text mt="16" fontSize="4xl" color="text">
+        Películas Mejor Puntuadas
+      </Text>
+      <Box overflowX="auto" py={4} px={2}>
+        {loadingTopRated ? (
+          <Spinner />
+        ) : (
+          <Flex gap={4}>
+            {topRatedMovies.map((movie) => (
+              <CardsMovie
+                key={movie.id}
+                title={movie.title}
+                img={`${imageBaseUrl}${movie.backdrop_path}`}
+                id={movie.id}
+              />
+            ))}
+          </Flex>
+        )}
       </Box>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

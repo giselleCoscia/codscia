@@ -3,10 +3,10 @@ import data from "@/data"
 import { Grid, GridItem, Text } from '@chakra-ui/react'
 import Pag from "@/componets/pag"
 
-function LastMovies() {
+function Popular() {
   return (
-  <>
-  <Text marginTop="16" color="text" fontSize="4xl" >Ultimas Peliculas</Text>
+   <>
+  <Text marginTop="16" color="text" fontSize="4xl" >Populares</Text>
     <Grid
       templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }}
       gap={6}
@@ -27,6 +27,4 @@ function LastMovies() {
   )
 }
 
-
-
-export default LastMovies
+export default Popular
