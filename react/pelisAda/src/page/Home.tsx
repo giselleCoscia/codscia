@@ -8,9 +8,11 @@ function Home() {
 
   return (
     <>
+  {/* carrusel de peliculas Populares */}
       <Text mt="16" fontSize="4xl" color="text">
         Películas Populares
       </Text>
+
       <Box overflowX="auto" py={4} px={2}>
         {loadingPopular ? (
           <Spinner />
@@ -27,7 +29,7 @@ function Home() {
           </Flex>
         )}
       </Box>
-
+ {/* carrusel de peliculas Mejor puntuadas */}
       <Text mt="16" fontSize="4xl" color="text">
         Películas Mejor Puntuadas
       </Text>

@@ -18,7 +18,7 @@ const Search = () => {
       flex="1" 
       startElement={<LuSearch />} 
     >
-      <Input 
+      <Input color="white"
         value={search} 
         onChange={(e) => setSearch(e.target.value)} 
          onKeyDown={handleKeyDown}

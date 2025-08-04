@@ -1,8 +1,8 @@
-import type { ApiResponse, Movie } from '@/types'
+import type { ApiResponse, Movie, MovieDetail, PaginatedApiResponse, Video } from '@/types'
 import { useEffect, useState, useCallback } from 'react'
 
-interface UseMoviesReturn {
-  data: Movie[]
+interface UseApiDataReturn<T> {
+  data: T[]
   loading: boolean
   error: string | null
   page: number
@@ -11,15 +11,15 @@ interface UseMoviesReturn {
   setPage: (page: number) => void
 }
 
-const useMovies = (endpoint: string, name: string = ''): UseMoviesReturn => {
-  const [data, setData] = useState<Movie[]>([])
+const useMovies = <T = any> (endpoint: string, name: string = ''): UseApiDataReturn<T> => {
+  const [data, setData] = useState<T[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
   const [page, setPage] = useState<number>(1)
   const [totalPages, setTotalPages] = useState<number>(0)
   const [totalResults, setTotalResults] = useState<number>(0)
 
-  const language = 'es-ES'
+  const languaje = 'es-ES'
   const region = 'AR'
 
   const fetchData = useCallback(async () => {
@@ -29,7 +29,7 @@ const useMovies = (endpoint: string, name: string = ''): UseMoviesReturn => {
 
       const params = new URLSearchParams({
         api_key: import.meta.env.VITE_API_KEY,
-        language,
+        languaje,
         region,
         page: page.toString(),
         query: name,
@@ -43,11 +43,22 @@ const useMovies = (endpoint: string, name: string = ''): UseMoviesReturn => {
         throw new Error(`Error ${response.status}: ${response.statusText}`)
       }
 
-      const result: ApiResponse = await response.json()
+      const result: ApiResponse<T> = await response.json()
 
-      setData(result.results)
-      setTotalPages(result.total_pages)
-      setTotalResults(result.total_results)
+      if (Array.isArray(result)) {
+        setData(result)
+        setTotalPages(1)
+        setTotalResults(result.length)
+      } else if (result && typeof result === 'object' && 'results' in result) {
+        const paginatedResult = result as PaginatedApiResponse<T>
+        setData(paginatedResult.results || [])
+        setTotalPages(paginatedResult.total_pages || 1)
+        setTotalResults(paginatedResult.total_results || 0)
+      } else {
+        setData([result as T])
+        setTotalPages(1)
+        setTotalResults(1)
+      }
     } catch (err) {
       console.error('Error fetching movies:', err)
     } finally {
@@ -79,5 +90,18 @@ const useMovies = (endpoint: string, name: string = ''): UseMoviesReturn => {
   }
 }
 
+const useTrailer = (id:string) =>{
+  const { data, loading, error } = useMovies<Video>(`/movie/${id}/videos`)
+  return { trailer:data[0],loading,error}
+}
+
+
+const useMovie = (id:string) =>{
+  const { data, loading, error } = useMovies<MovieDetail>(`/movie/${id}`)
+  return { movie:data[0],loading,error}
+}
+
+export { useTrailer,useMovie }
+
 export default useMovies
-export type { Movie, UseMoviesReturn }
+export type { Movie,  UseApiDataReturn}
