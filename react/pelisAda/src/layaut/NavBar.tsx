@@ -1,6 +1,7 @@
+import Search from "@/componets/Search"
 import { Box, Button, HStack } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
-import { Search } from "@/componets/Search"
+
 
 const NavBar = () => {
   const navigate = useNavigate()
