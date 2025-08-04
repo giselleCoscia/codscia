@@ -1,92 +1,35 @@
-import { Badge, Box, Button, Flex, Stack, Text } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
+import { Badge, Box, Button, Flex, Stack, Text, Spinner } from '@chakra-ui/react'
+import { useNavigate, useParams } from 'react-router-dom'
+import useMovieDetail from '@/hooks/useMoviesDetail'
 
-const data = {
-  adult: false,
-  backdrop_path: '/8J6UlIFcU7eZfq9iCLbgc8Auklg.jpg',
-  belongs_to_collection: {
-    id: 1458864,
-    name: 'How to Train Your Dragon (Live-Action) Collection',
-    poster_path: null,
-    backdrop_path: '/eKpWn8DwS6xpAKs4eLb4PmrXnhk.jpg',
-  },
-  budget: 150000000,
-  genres: [
-    {
-      id: 14,
-      name: 'Fantasía',
-    },
-    {
-      id: 10751,
-      name: 'Familia',
-    },
-    {
-      id: 28,
-      name: 'Acción',
-    },
-  ],
-  homepage: 'https://www.universalpictures.es/micro/entrenador-de-dragones',
-  id: 1087192,
-  imdb_id: 'tt26743210',
-  origin_country: ['US'],
-  original_language: 'en',
-  original_title: 'How to Train Your Dragon',
-  overview:
-    'En la escarpada isla de Mema, donde vikingos y dragones han sido enemigos acérrimos durante generaciones, Hipo se desmarca desafiando siglos de tradición cuando entabla amistad con Desdentao, un temido dragón Furia Nocturna. Su insólito vínculo revela la verdadera naturaleza de los dragones y desafía los cimientos de la sociedad vikinga.',
-  popularity: 775.857,
-  poster_path: '/9Zr7ZyiMpgMhhxJQi1tQJp9LGho.jpg',
-  production_companies: [
-    {
-      id: 521,
-      logo_path: '/kP7t6RwGz2AvvTkvnI1uteEwHet.png',
-      name: 'DreamWorks Animation',
-      origin_country: 'US',
-    },
-    {
-      id: 2527,
-      logo_path: '/mNSqvPrlkAcdQlEZ3Ttmx75Z8Xw.png',
-      name: 'Marc Platt Productions',
-      origin_country: 'US',
-    },
-  ],
-  production_countries: [
-    {
-      iso_3166_1: 'US',
-      name: 'United States of America',
-    },
-  ],
-  release_date: '2025-06-06',
-  revenue: 605900000,
-  runtime: 125,
-  spoken_languages: [
-    {
-      english_name: 'English',
-      iso_639_1: 'en',
-      name: 'English',
-    },
-    {
-      english_name: 'Russian',
-      iso_639_1: 'ru',
-      name: 'Pусский',
-    },
-  ],
-  status: 'Released',
-  tagline: 'La leyenda es real.',
-  title: 'Cómo entrenar a tu dragón',
-  video: false,
-  vote_average: 8.067,
-  vote_count: 1265,
-}
+
+
 
 function Detail() {
   const navigate = useNavigate()
+  const { id } = useParams()
+  const { movie:data, loading, error } = useMovieDetail(id)
+
+  if (loading) {
+    return (
+      <Flex justify="center" align="center" minH="100vh">
+        <Spinner size="xl" />
+      </Flex>
+    )
+  }
+
+  if (error) {
+    return (
+      <Flex justify="center" align="center" minH="100vh">
+        <Text color="red.500">Error al cargar la película: {error}</Text>
+      </Flex>
+    )
+  }
+
+  if (!data) return null //
 
   return (
-    <Box 
-      minHeight="100vh"
-      bg="gray.100"
-      position="relative"
-    >
+    <Box minHeight="100vh" bg="gray.100" position="relative">
       {/* Fondo con imagen de backdrop */}
       <Box
         position="absolute"
@@ -100,7 +43,7 @@ function Detail() {
         opacity="0.7"
         zIndex="0"
       />
-      
+
       {/* Overlay oscuro */}
       <Box
         position="absolute"
@@ -124,19 +67,14 @@ function Detail() {
           padding="4"
           backdropFilter="blur(10px)"
         >
-          <Text 
-            color="white" 
-            fontSize={{ base: "2xl", md: "4xl" }}
-            fontWeight="bold"
-            
-          >
+          <Text color="white" fontSize={{ base: '2xl', md: '4xl' }} fontWeight="bold">
             {data.title}
           </Text>
-          <Button 
-            onClick={() => navigate('/')} 
+          <Button
+            onClick={() => navigate('/')}
             colorScheme="blue"
             size="lg"
-            _hover={{ transform: "scale(1.05)" }}
+            _hover={{ transform: 'scale(1.05)' }}
             transition="all 0.2s"
           >
             Ver Trailer
@@ -144,26 +82,18 @@ function Detail() {
         </Flex>
 
         {/* Contenido de la película */}
-        <Flex
-          direction={{ base: "column", lg: "row" }}
-          p="6"
-          gap="8"
-          maxW="1400px"
-          mx="auto"
-        >
+        <Flex direction={{ base: 'column', lg: 'row' }} p="6" gap="8" maxW="1400px" mx="auto">
           {/* Poster */}
-          <Box  mx="auto"
-          maxW="8xl"
-           flexShrink="0">
+          <Box mx="auto" maxW="8xl" flexShrink="0">
             <img
               src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
               alt={data.title}
               style={{
-                width: "300px",
-                height: "450px",
-                objectFit: "cover",
-                borderRadius: "12px",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
+                width: '300px',
+                height: '450px',
+                objectFit: 'cover',
+                borderRadius: '12px',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
               }}
             />
           </Box>
@@ -171,38 +101,23 @@ function Detail() {
           {/* Información */}
           <Box flex="1" color="white">
             {/* Tagline */}
-            <Text 
-              fontSize="lg" 
-              fontStyle="italic" 
-              color="gray.300" 
-              mb="4"
-            >
+            <Text fontSize="lg" fontStyle="italic" color="gray.300" mb="4">
               "{data.tagline}"
             </Text>
 
             {/* Overview */}
-            <Text 
-              fontSize="md" 
-              lineHeight="1.6" 
-              mb="6"
-              color="gray.100"
-            >
+            <Text fontSize="md" lineHeight="1.6" mb="6" color="gray.100">
               {data.overview}
             </Text>
 
             {/* Géneros */}
             <Box mb="6">
-              <Text 
-                fontSize="xl" 
-                fontWeight="semibold" 
-                mb="3"
-                color="white"
-              >
+              <Text fontSize="xl" fontWeight="semibold" mb="3" color="white">
                 Géneros:
               </Text>
               <Stack direction="row" wrap="wrap" spacing="2">
                 {data.genres.map((genre) => (
-                  <Badge 
+                  <Badge
                     key={genre.id}
                     bg="#43639E"
                     variant="solid"
@@ -226,7 +141,7 @@ function Detail() {
                 {new Date(data.release_date).toLocaleDateString('es-ES', {
                   year: 'numeric',
                   month: 'long',
-                  day: 'numeric'
+                  day: 'numeric',
                 })}
               </Text>
               <Text>

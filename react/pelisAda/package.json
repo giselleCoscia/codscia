@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ark-ui/react": "^5.18.3",
     "@chakra-ui/icons": "^2.2.4",
     "@chakra-ui/react": "^3.23.0",
     "@chakra-ui/styled-system": "^2.12.0",
@@ -17,6 +18,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@tailwindcss/vite": "^4.1.11",
+    "axios": "^1.11.0",
     "next-themes": "^0.4.6",
     "path": "^0.12.7",
     "react": "^19.1.0",

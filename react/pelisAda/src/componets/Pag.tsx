@@ -1,25 +1,48 @@
-
-
 import { ButtonGroup, Center, IconButton, Pagination } from "@chakra-ui/react"
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu"
 
-const Pag = () => {
+
+interface PagProps {
+   page: number;
+  totalPages: number;
+  setPage: (page: number) => void;
+}
+const Pag = ({page,totalPages,setPage}:PagProps)  => {
+
+
   return (
      <Center>
-<Pagination.Root   count={20} pageSize={2} defaultPage={1}>
+<Pagination.Root  
+ count={totalPages} 
+ pageSize={2} 
+ page={page}
+ defaultPage={1}
+  onChange={({page}) => {
+  
+          setPage(page); 
+         console.log("Página seleccionada:", page);
+        }}
+
+>
       <ButtonGroup   variant="outline" size="sm">
         <Pagination.PrevTrigger  asChild>
-          <IconButton >
+          <IconButton aria-label="Anterior">
             <LuChevronLeft />
           </IconButton>
         </Pagination.PrevTrigger>
 
         <Pagination.Items   color="text" 
-          render={(page) => (
-            <IconButton   variant={{ base: "outline", _selected: "solid" }}>
-              {page.value}
-            </IconButton>
-          )}
+          render={({ value }) => (
+              <IconButton
+                key={value}
+                aria-label={`Page ${value}`}
+               
+                variant={{ base: "outline", _selected: "solid" }}
+                 onClick={() => setPage(value)}
+              >
+                {value}
+              </IconButton>
+            )}
         />
 
         <Pagination.NextTrigger asChild>

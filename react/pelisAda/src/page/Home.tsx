@@ -1,11 +1,10 @@
 import CardsMovie from '@/componets/CardsMovie';
+import useMovies from '@/hooks/useMovies';
 import { Box, Flex, Text, Spinner } from '@chakra-ui/react';
-import useMovies from '@/hooks/useMovies.js'
 
 function Home() {
   const { data: popularMovies, loading: loadingPopular } = useMovies('/movie/popular');
   const { data: topRatedMovies, loading: loadingTopRated } = useMovies('/movie/top_rated');
-  const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
 
   return (
     <>
@@ -21,7 +20,7 @@ function Home() {
               <CardsMovie
                 key={movie.id}
                 title={movie.title}
-                img={`${imageBaseUrl}${movie.backdrop_path}`}
+                img={movie.backdrop_path || ""}
                 id={movie.id}
               />
             ))}
@@ -41,7 +40,7 @@ function Home() {
               <CardsMovie
                 key={movie.id}
                 title={movie.title}
-                img={`${imageBaseUrl}${movie.backdrop_path}`}
+                img={movie.backdrop_path || ""}
                 id={movie.id}
               />
             ))}
