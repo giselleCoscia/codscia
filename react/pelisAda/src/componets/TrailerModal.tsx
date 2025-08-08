@@ -3,8 +3,6 @@ import {
   DialogBackdrop,
   DialogPositioner,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogBody,
   Portal,
   type DialogRootProps
@@ -25,7 +23,7 @@ export const TrailerModal = ({ trailerUrl, ...rest }: TrailerModalProps) => {
               {trailerUrl && (
                 <iframe
                   width="100%"
-                  height="400px"
+                  height="900px"
                   src={trailerUrl}
                   title="YouTube Trailer"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

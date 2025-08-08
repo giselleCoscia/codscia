@@ -6,7 +6,6 @@ import {
   Stack,
   Text,
   Spinner,
-  useDisclosure,
 } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import { useMovie, useTrailer } from '@/hooks/useMovies'
@@ -17,7 +16,7 @@ function Detail() {
   const { id } = useParams()
   const { movie, loading, error } = useMovie(id as string)
   const { trailer } = useTrailer(id as string)
- 
+
   const [isOpen, setIsOpen] = useState(false)
   if (loading) {
     return (
@@ -182,12 +181,15 @@ function Detail() {
           </Flex>
         </Box>
       </Box>
-
-      <TrailerModal
-        open={isOpen}
-        onOpenChange={(e) => setIsOpen(e.open)}
-        title={movie.title}
-        trailerUrl={`https://youtube.com/embed/${trailer.key}`} children={undefined}      />
+      {trailer?.key && (
+        <TrailerModal
+          open={isOpen}
+          onOpenChange={(e) => setIsOpen(e.open)}
+          title={movie.title}
+          trailerUrl={`https://youtube.com/embed/${trailer.key}`}
+          children={undefined}
+        />
+      )}
     </>
   )
 }
